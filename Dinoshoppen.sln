@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinoshoppen", "Dinoshoppen\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{AF9A5671-BD33-4469-98C7-1CB73129A247}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Billede", "Billede", "{FD3749D1-5A0C-4696-8BE0-7EFAD1B314EB}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Pictures\Capture.PNG = ..\..\..\Pictures\Capture.PNG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
