@@ -7,10 +7,10 @@ namespace DataLayer.Entities
     public class Diet
     {
         public int DietId { get; set; }
+
         public string DietName { get; set; }
 
-
-        public int DinoId { get; set; }
+        //Navigation relation
         public Dinosaur Dinosaur { get; set; }
     }
 }
