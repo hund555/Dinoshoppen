@@ -6,7 +6,7 @@ namespace DataLayer.Entities
 {
     public class Customer
     {
-        public int CustomerId { get; set; }
+        public int CustomerId { get; set; } //PK
 
         public string Name { get; set; }
 

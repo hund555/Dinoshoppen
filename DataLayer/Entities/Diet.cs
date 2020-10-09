@@ -6,11 +6,11 @@ namespace DataLayer.Entities
 {
     public class Diet
     {
-        public int DietId { get; set; }
+        public int DietId { get; set; } //PK
 
         public string DietName { get; set; }
 
         //Navigation relation
-        public Dinosaur Dinosaur { get; set; }
+        public List<Dinosaur> Dinosaurs { get; set; }
     }
 }

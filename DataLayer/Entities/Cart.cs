@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Text;
 
@@ -7,11 +8,11 @@ namespace DataLayer.Entities
 {
     public class Cart
     {
-        public int CustomerId { get; set; }
+        public int CustomerId { get; set; } //FK
 
-        public int? DinosaurId { get; set; }
+        public int? DinosaurId { get; set; } //FK
 
-        public int? RabatId { get; set; }
+        public int? RabatId { get; set; } //FK
 
         public double TotalPrice { get; set; }
 

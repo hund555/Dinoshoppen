@@ -3,14 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinoshoppen", "Dinoshoppen\Dinoshoppen.csproj", "{CE07E94B-9611-42F7-87F8-B2E4EFEFADA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dinoshoppen", "Dinoshoppen\Dinoshoppen.csproj", "{CE07E94B-9611-42F7-87F8-B2E4EFEFADA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{AF9A5671-BD33-4469-98C7-1CB73129A247}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{AF9A5671-BD33-4469-98C7-1CB73129A247}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Billede", "Billede", "{FD3749D1-5A0C-4696-8BE0-7EFAD1B314EB}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\Pictures\Capture.PNG = ..\..\..\Pictures\Capture.PNG
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{7944A300-78E1-40B0-AEF4-219FFD85AFAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +23,10 @@ Global
 		{AF9A5671-BD33-4469-98C7-1CB73129A247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF9A5671-BD33-4469-98C7-1CB73129A247}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF9A5671-BD33-4469-98C7-1CB73129A247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7944A300-78E1-40B0-AEF4-219FFD85AFAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7944A300-78E1-40B0-AEF4-219FFD85AFAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7944A300-78E1-40B0-AEF4-219FFD85AFAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7944A300-78E1-40B0-AEF4-219FFD85AFAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
