@@ -8,12 +8,24 @@ namespace DataLayer.Entities
 
         public string DinoName { get; set; }
 
+        /// <summary>
+        /// In kg
+        /// </summary>
         public double DinoWeight { get; set; } //In kg
 
+        /// <summary>
+        /// In meters
+        /// </summary>
         public double DinoLenght { get; set; } //In meters
 
+        /// <summary>
+        /// In meters
+        /// </summary>
         public double DinoHeight { get; set; } //In meters
 
+        /// <summary>
+        /// In DKK
+        /// </summary>
         public double DinoPrice { get; set; }
 
         public int? PromotionId { get; set; } //FK

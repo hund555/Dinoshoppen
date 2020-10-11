@@ -5,11 +5,21 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Transactions;
 
 namespace DataLayer
 {
     public class DinoDbContext : DbContext
     {
+        public DinoDbContext()
+        {
+
+        }
+        public DinoDbContext(DbContextOptions<DinoDbContext> options) : base(options)
+        {
+
+        }
+
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Dinosaur> Dinosaurs { get; set; }
@@ -20,12 +30,15 @@ namespace DataLayer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = Dinoshoppen; Trusted_Connection = True; ")
-            .EnableSensitiveDataLogging(true)
-            .UseLoggerFactory(new ServiceCollection()
-            .AddLogging(builder => builder.AddConsole()
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = Dinoshoppen; Trusted_Connection = True; ")
+                .EnableSensitiveDataLogging(true)
+                .UseLoggerFactory(new ServiceCollection()
+                .AddLogging(builder => builder.AddConsole()
                 .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
                 .BuildServiceProvider().GetService<ILoggerFactory>());
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,7 +61,7 @@ namespace DataLayer
                 );
 
             modelBuilder.Entity<Promotion>().HasData(
-                new Promotion { PromotionId = 1, PromotionName = "Åbnings salg", PromotionRabat = 25}
+                new Promotion { PromotionId = 1, PromotionName = "Åbnings salg", PromotionRabat = 25 }
                 );
 
             modelBuilder.Entity<Dinosaur>().HasData(
@@ -59,7 +72,7 @@ namespace DataLayer
                 );
 
             modelBuilder.Entity<Customer>().HasData(
-                new Customer { CustomerId = 1, Name = "Customer1", Address = "Sønderborgvej 1", Mail = "customer1@gmail.com"},
+                new Customer { CustomerId = 1, Name = "Customer1", Address = "Sønderborgvej 1", Mail = "customer1@gmail.com" },
                 new Customer { CustomerId = 2, Name = "Customer2", Address = "Sønderborgvej 2", Mail = "customer2@gmail.com" },
                 new Customer { CustomerId = 3, Name = "Customer3", Address = "Sønderborgvej 3", Mail = "customer3@gmail.com" },
                 new Customer { CustomerId = 4, Name = "Customer4", Address = "Sønderborgvej 4", Mail = "customer4@gmail.com" }
