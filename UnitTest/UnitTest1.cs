@@ -15,7 +15,7 @@ namespace UnitTest
         public async Task AddNewDino()
         {
             //ARRANGE
-            var options = new DbContextOptionsBuilder<DinoDbContext>()
+            DbContextOptions<DinoDbContext> options = new DbContextOptionsBuilder<DinoDbContext>()
                 .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
                 .Options;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServiceLayer.DinoService.DTOCollection
+﻿namespace ServiceLayer.DinoService.DTOCollection
 {
     public class ListDinoDTO
     {
@@ -14,6 +10,7 @@ namespace ServiceLayer.DinoService.DTOCollection
         public int PromotionRabat { get; set; }
         public string PromotionName { get; set; }
 
+        public int DietId { get; set; }
         public string DietName { get; set; }
     }
 }

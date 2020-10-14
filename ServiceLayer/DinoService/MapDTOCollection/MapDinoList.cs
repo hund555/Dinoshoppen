@@ -1,9 +1,6 @@
 ﻿using DataLayer.Entities;
 using ServiceLayer.DinoService.DTOCollection;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ServiceLayer.DinoService.MapDTOCollection
 {
@@ -20,6 +17,7 @@ namespace ServiceLayer.DinoService.MapDTOCollection
                 PromotionRabat = d.Promotion.PromotionRabat,
                 PromotionName = d.Promotion.PromotionName,
 
+                DietId = d.DietId,
                 DietName = d.Diet.DietName
             });
         }
