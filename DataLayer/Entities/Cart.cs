@@ -14,7 +14,7 @@ namespace DataLayer.Entities
 
         public int? RabatId { get; set; } //FK
 
-        public double TotalPrice { get; set; }
+        public int Amound { get; set; }
 
         //Navigation relations
         public Customer Customer { get; set; }

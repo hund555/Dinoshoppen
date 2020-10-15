@@ -1,5 +1,6 @@
 ﻿using DataLayer.Entities;
 using ServiceLayer.DinoService.DTOCollection;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ServiceLayer.DinoService.MapDTOCollection
@@ -12,7 +13,8 @@ namespace ServiceLayer.DinoService.MapDTOCollection
             {
                 DinosaurId = d.DinosaurId,
                 DinoName = d.DinoName,
-                DinoPrice = d.DinoPrice,
+                DinoPicture = d.DinoPicture,
+                DinoPrice = d.DinoPrice - (d.DinoPrice / 100 * d.Promotion.PromotionRabat),
 
                 PromotionRabat = d.Promotion.PromotionRabat,
                 PromotionName = d.Promotion.PromotionName,

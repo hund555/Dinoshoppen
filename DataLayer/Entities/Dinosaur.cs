@@ -28,6 +28,8 @@ namespace DataLayer.Entities
         /// </summary>
         public double DinoPrice { get; set; }
 
+        public string DinoPicture { get; set; }
+
         public int? PromotionId { get; set; } //FK
 
         public int DietId { get; set; } //FK

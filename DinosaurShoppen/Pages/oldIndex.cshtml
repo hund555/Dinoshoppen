@@ -1,0 +1,12 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="card-deck">
+    @foreach (var dino in Model.DinoPromotionList)
+    {
+        <partial name="_ShowTop6" model="dino"/>
+    }
+</div>

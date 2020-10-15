@@ -1,0 +1,11 @@
+﻿@page
+@model DinosaurShoppen.Pages.DinoList.IndexModel
+@{
+}
+
+<div class="card-deck">
+    @foreach (var dino in Model.DinoPromotionList)
+    {
+        <partial name="_ShowTop6" model="dino" />
+    }
+</div>

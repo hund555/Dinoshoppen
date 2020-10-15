@@ -4,6 +4,7 @@
     {
         public int DinosaurId { get; set; }
         public string DinoName { get; set; }
+        public string DinoPicture { get; set; }
         public double DinoPrice { get; set; }
 
 

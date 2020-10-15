@@ -11,6 +11,8 @@ namespace ServiceLayer.DinoService.DTOCollection
 
         public string DinoName { get; set; }
 
+        public string DinoPicture { get; set; }
+
         public double DinoWeight { get; set; } //In kg
 
         public double DinoLenght { get; set; } //In meters
