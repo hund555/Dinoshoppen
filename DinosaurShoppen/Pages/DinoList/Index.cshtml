@@ -9,3 +9,73 @@
         <partial name="_ShowTop6" model="dino" />
     }
 </div>
+
+
+<form method="get" class="row">
+    <div class="col-3">
+        <label asp-for="FilterName" class="control-label"></label>
+        <input asp-for="FilterName" class="form-control" placeholder="Søg..." />
+    </div>
+    <div class="col-3">
+        <label asp-for="FilterDiet" class="control-label"></label>
+        <select asp-for="FilterDiet" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumDinoFilter>()" class="form-control"></select>
+    </div>
+    <div class="col-3">
+        <label asp-for="OrderBy" class="control-label"></label>
+        <select asp-for="OrderBy" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumOrderDinoListByOptions>()" class="form-control"></select>
+    </div>
+    <div class="col-3">
+        <label asp-for="PageSize" class="control-label"></label>
+        <select asp-for="PageSize" class="form-control">
+            <option value="12">12</option>
+            <option value="24">24</option>
+            <option value="36">36</option>
+            <option value="48">48</option>
+            <option value="60">60</option>
+        </select>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DinoList[0].DinoName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DinoList[0].PromotionRabat)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DinoList[0].DinoPrice)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Dino in Model.DinoList)
+                {
+                    <tr>
+                        <td>
+                            @Dino.DinoName
+                        </td>
+                        <td>
+                            @Dino.PromotionRabat%
+                        </td>
+                        <td>
+                            @Dino.DinoPrice
+                        </td>
+                        <td>
+                            <a asp-page="./Details" asp-route-dinoId="@Dino.DinosaurId">vis mere</a>
+                            <form method="post">
+                                <input type="hidden" asp-for="@Model.DinoId" value="@Dino.DinosaurId" />
+                                <input type="submit" value="Tilføj kurv" class="btn btn-primary" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

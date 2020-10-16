@@ -11,11 +11,11 @@ namespace ServiceLayer.DinoService.Services
         public EnumOrderDinoListByOptions OrderByOptions { get; set; }
 
 
-        public const int DefaultPageSize = 10;
+        public const int DefaultPageSize = 12;
 
         public int PageNumber { get; set; }
 
-        public int PageSize { get; set; }
+        public int PageSize { get; set; } = DefaultPageSize;
 
         public int PagesCount { get; set; }
 

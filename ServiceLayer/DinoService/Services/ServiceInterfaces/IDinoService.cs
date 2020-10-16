@@ -9,6 +9,7 @@ namespace ServiceLayer.DinoService.Services.ServiceInterfaces
         Task<DinosaurDTO> AddNewDino(DinosaurDTO newDino);
         Task<int> DeleteDinoById(int id);
         IQueryable<ListDinoDTO> GetFullDinoList(SortFilterPageOptions options);
+        IQueryable<ListDinoDTO> GetDinoListWithNameFilter(SortFilterPageOptions options, string dinoName);
         IQueryable<ListDinoDTO> GetTop6PromotionDino();
     }
 }

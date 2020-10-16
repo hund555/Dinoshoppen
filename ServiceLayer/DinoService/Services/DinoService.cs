@@ -45,6 +45,19 @@ namespace ServiceLayer.DinoService.Services
             return dinoList.Page(options.PageNumber - 1, options.PageSize);
         }
 
+        public IQueryable<ListDinoDTO> GetDinoListWithNameFilter(SortFilterPageOptions options, string dinoName)
+        {
+            var dinoList = _context.Dinosaurs
+                .Where(d => d.DinoName.Contains(dinoName))
+                .AsNoTracking()
+                .MapToDinoList()
+                .OrderDinoListBy(options.OrderByOptions)
+                .FilterListDinoBy(options.FilterByDiet);
+
+            options.SetUpRestOfDto(dinoList);
+            return dinoList.Page(options.PageNumber - 1, options.PageSize);
+        }
+
         public async Task<DinosaurDTO> AddNewDino(DinosaurDTO newDino)
         {
             Dinosaur dino = new Dinosaur()
