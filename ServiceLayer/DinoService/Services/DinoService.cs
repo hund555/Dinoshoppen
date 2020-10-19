@@ -58,6 +58,14 @@ namespace ServiceLayer.DinoService.Services
             return dinoList.Page(options.PageNumber - 1, options.PageSize);
         }
 
+        public DinosaurDTO GetDinoById(int dinoId)
+        {
+            return _context.Dinosaurs
+                .Where(d => d.DinosaurId == dinoId)
+                .MapDinoToDto()
+                .FirstOrDefault();
+        }
+
         public async Task<DinosaurDTO> AddNewDino(DinosaurDTO newDino)
         {
             Dinosaur dino = new Dinosaur()
@@ -86,6 +94,34 @@ namespace ServiceLayer.DinoService.Services
                 _context.Dinosaurs.Remove(dino);
             }
 
+            await _context.SaveChangesAsync();
+
+            return 0;
+        }
+
+        public async Task<int> AddDinoToCart(int customerId, int dinoId, int antal)
+        {
+            Customer customerCart = await _context.Customers
+                .Include(c => c.Carts)
+                .FirstOrDefaultAsync(c => c.CustomerId == customerId);
+
+            foreach (Cart item in customerCart.Carts)
+            {
+                if (item.DinosaurId == dinoId)
+                {
+                    item.Amound += antal;
+                    return 0;
+                }
+            }
+
+            Cart cart = new Cart() 
+            {
+                Amound = antal,
+                CustomerId = customerId,
+                DinosaurId = dinoId
+            };
+
+            _context.Add(cart);
             await _context.SaveChangesAsync();
 
             return 0;

@@ -1,0 +1,33 @@
+﻿@page "{dinoId:int}"
+@model DinosaurShoppen.Pages.DinoList.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>detaljer</h2>
+
+<div>
+    <dl class="row">
+        <dd>
+            <img asp-append-version="true" src="@Model.Dinosaur.DinoPicture" style="max-height: 150px; max-width: 150px;" />
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Dinosaur.DinoName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dinosaur.DinoName)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Dinosaur.DinoWeight)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dinosaur.DinoWeight)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Dinosaur.DinoHeight)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dinosaur.DinoHeight)
+        </dd>
+    </dl>
+</div>

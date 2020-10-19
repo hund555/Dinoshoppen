@@ -20,11 +20,11 @@
         <label asp-for="FilterDiet" class="control-label"></label>
         <select asp-for="FilterDiet" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumDinoFilter>()" class="form-control"></select>
     </div>
-    <div class="col-3">
+    <div class="col-2">
         <label asp-for="OrderBy" class="control-label"></label>
         <select asp-for="OrderBy" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumOrderDinoListByOptions>()" class="form-control"></select>
     </div>
-    <div class="col-3">
+    <div class="col-2">
         <label asp-for="PageSize" class="control-label"></label>
         <select asp-for="PageSize" class="form-control">
             <option value="12">12</option>
@@ -33,6 +33,9 @@
             <option value="48">48</option>
             <option value="60">60</option>
         </select>
+    </div>
+    <div class="col-2">
+        <input type="submit" value="Søg" class="btn btn-primary" />
     </div>
 </form>
 
@@ -64,7 +67,7 @@
                             @Dino.PromotionRabat%
                         </td>
                         <td>
-                            @Dino.DinoPrice
+                            @Dino.DinoPrice.ToString("c")
                         </td>
                         <td>
                             <a asp-page="./Details" asp-route-dinoId="@Dino.DinosaurId">vis mere</a>
@@ -77,5 +80,15 @@
                 }
             </tbody>
         </table>
+        <div>
+            <ul class="pagination">
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a asp-page="./Index" asp-route-currentpage="@i" class="page-link">@i</a>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
 </div>

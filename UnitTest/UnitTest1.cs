@@ -45,5 +45,28 @@ namespace UnitTest
                 Assert.AreEqual("Fucking Dinosaurus", context.Dinosaurs.SingleOrDefault().DinoName);
             }
         }
+
+        [TestMethod]
+        public async void TestAddToCart()
+        {
+            //ARRANGE
+            DbContextOptions<DinoDbContext> options = new DbContextOptionsBuilder<DinoDbContext>()
+                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
+                .Options;
+
+            //ACT
+            using (DinoDbContext context = new DinoDbContext(options))
+            {
+                DinoService service = new DinoService(context);
+
+                await service.AddDinoToCart(1, 1, 2);
+            }
+
+            //ASSERT
+            using (DinoDbContext context = new DinoDbContext(options))
+            {
+                Assert.AreEqual(1, context.Customers.Count());
+            }
+        }
     }
 }

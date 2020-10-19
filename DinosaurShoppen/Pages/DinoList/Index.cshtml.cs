@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ServiceLayer.DinoService.DTOCollection;
+using ServiceLayer.DinoService.EnumCollection;
 using ServiceLayer.DinoService.Services;
 using ServiceLayer.DinoService.Services.ServiceInterfaces;
 
@@ -33,11 +34,14 @@ namespace DinosaurShoppen.Pages.DinoList
 
         [Display(Name = "Side størelse")]
         [BindProperty(SupportsGet = true)]
-        public int? PageSize { get; set; }
+        public uint? PageSize { get; set; }
 
         [Display(Name = "Filtrer på Diet")]
         [BindProperty(SupportsGet = true)]
         public int? FilterDiet { get; set; }
+
+        [BindProperty]
+        public int TotalPages { get; set; }
 
         [Display(Name = "Sorter efter")]
         [BindProperty(SupportsGet = true)]
@@ -54,7 +58,34 @@ namespace DinosaurShoppen.Pages.DinoList
         {
             Options = new SortFilterPageOptions();
             DinoPromotionList = _dinoService.GetTop6PromotionDino().ToList();
-            DinoList = _dinoService.GetFullDinoList(Options).ToList();
+
+            if (CurrentPage.HasValue)
+            {
+                Options.PageNumber = (int)CurrentPage;
+            }
+            if (FilterDiet.HasValue && FilterDiet <= Enum.GetNames(typeof(EnumDinoFilter)).Length && FilterDiet >= 0)
+            {
+                Options.FilterByDiet = (EnumDinoFilter)FilterDiet;
+            }
+            if (PageSize.HasValue)
+            {
+                Options.PageSize = (int)PageSize;
+            }
+            if (OrderBy.HasValue && OrderBy <= Enum.GetNames(typeof(EnumOrderDinoListByOptions)).Length && OrderBy >= 0)
+            {
+                Options.OrderByOptions = (EnumOrderDinoListByOptions)OrderBy;
+            }
+
+            if (string.IsNullOrEmpty(FilterName))
+            {
+                DinoList = _dinoService.GetFullDinoList(Options).ToList();
+            }
+            else
+            {
+                DinoList = _dinoService.GetDinoListWithNameFilter(Options, FilterName).ToList();
+            }
+            
+            TotalPages = Options.PagesCount;
         }
 
         public IActionResult OnPost()

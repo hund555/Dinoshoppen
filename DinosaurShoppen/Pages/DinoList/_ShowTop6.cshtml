@@ -3,20 +3,20 @@
 
 <div class="col-sm-4">
     <div class="card my-4">
-        <img asp-append-version="true" src="@Model.DinoPicture" class="img-fluid" />
+        <img asp-append-version="true" src="@Model.DinoPicture" class="img-fluid"  />
         <div class="card-body">
             <h4 class="card-title">@Model.DinoName</h4>
             <p class="card-text">Diet: @Model.DietName</p>
             <p class="card-text">Price: @Model.DinoPrice</p>
         </div>
         <div class="card-footer text-muted text-center">
-            <a asp-page="./Details" asp-route-id="@Model.DinosaurId" title="Show Details">
+            <a asp-page="./Details" asp-route-dinoId="@Model.DinosaurId" title="Show Details">
                 Details
             </a>
-            <a asp-page="./Edit" asp-route-id="@Model.DinosaurId" title="Go to Edit">
+            <a asp-page="./Edit" asp-route-dinoId="@Model.DinosaurId" title="Go to Edit">
                 Edit
             </a>
-            <a asp-page="./Delete" asp-route-id="@Model.DinosaurId" title="Delete this movie">
+            <a asp-page="./Delete" asp-route-dinoId="@Model.DinosaurId" title="Delete this movie">
                 Delete
             </a>
         </div>

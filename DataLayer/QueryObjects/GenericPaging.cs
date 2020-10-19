@@ -7,9 +7,9 @@ namespace DataLayer.QueryObjects
     {
         public static IQueryable<T> Page<T>(this IQueryable<T> query, int pageNumZeroStart, int pageSize)
         {
-            if (pageSize == 0)
+            if (pageSize <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(pageSize), "Siden skal vise produkter");
+                pageSize = 12;
             }
             if (pageSize != 0)
             {

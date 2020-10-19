@@ -20,6 +20,7 @@ namespace ServiceLayer.DinoService.MapDTOCollection
                 DinoLenght = d.DinoLenght,
                 DinoPrice = d.DinoPrice,
                 PromotionId = d.PromotionId,
+                DinoPicture = d.DinoPicture,
 
                 DietId = d.DietId,
                 DietName = d.Diet.DietName
