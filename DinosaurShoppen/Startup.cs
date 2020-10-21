@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ServiceLayer.CustomerService.Services;
+using ServiceLayer.CustomerService.Services.Interfaces;
 using ServiceLayer.DinoService.Services;
 using ServiceLayer.DinoService.Services.ServiceInterfaces;
 
@@ -27,9 +29,22 @@ namespace DinosaurShoppen
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DinoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDistributedMemoryCache();
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddDbContext<DinoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICustomerServiceUsers, CustomerServiceUsers>();
             services.AddScoped<IDinoService, DinoService>();
+
+            services.AddMiniProfiler(options => {
+                options.ColorScheme = StackExchange.Profiling.ColorScheme.Dark;
+                options.SqlFormatter = new StackExchange.Profiling.SqlFormatters.InlineFormatter();
+            }).AddEntityFramework();
 
             services.AddRazorPages()
                 .AddRazorPagesOptions(options =>
@@ -43,6 +58,8 @@ namespace DinosaurShoppen
         {
             if (env.IsDevelopment())
             {
+                app.UseMiniProfiler();
+
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -58,6 +75,8 @@ namespace DinosaurShoppen
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

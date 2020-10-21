@@ -3,15 +3,13 @@ using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.CustomerService.DTOCollection;
 using ServiceLayer.CustomerService.MapDTOCollection;
-using System;
-using System.Collections.Generic;
+using ServiceLayer.CustomerService.Services.Interfaces;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ServiceLayer.CustomerService.Services
 {
-    public class CustomerServiceAdmin
+    public class CustomerServiceAdmin : ICustomerServiceAdmin
     {
         private readonly DinoDbContext _context;
         public CustomerServiceAdmin(DinoDbContext context)
@@ -42,6 +40,8 @@ namespace ServiceLayer.CustomerService.Services
                 Name = customer.Name
             };
         }
+
+
 
         public async Task<int> DeleteCustomerById(int id)
         {

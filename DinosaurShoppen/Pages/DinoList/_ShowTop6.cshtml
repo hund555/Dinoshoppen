@@ -7,17 +7,11 @@
         <div class="card-body">
             <h4 class="card-title">@Model.DinoName</h4>
             <p class="card-text">Diet: @Model.DietName</p>
-            <p class="card-text">Price: @Model.DinoPrice</p>
+            <p class="card-text">Pris: @Model.DinoPrice.ToString("c")</p>
         </div>
         <div class="card-footer text-muted text-center">
-            <a asp-page="./Details" asp-route-dinoId="@Model.DinosaurId" title="Show Details">
-                Details
-            </a>
-            <a asp-page="./Edit" asp-route-dinoId="@Model.DinosaurId" title="Go to Edit">
-                Edit
-            </a>
-            <a asp-page="./Delete" asp-route-dinoId="@Model.DinosaurId" title="Delete this movie">
-                Delete
+            <a asp-page="./Details" asp-route-dinoId="@Model.DinosaurId" title="Vis detaljer">
+                Vis mere
             </a>
         </div>
     </div>

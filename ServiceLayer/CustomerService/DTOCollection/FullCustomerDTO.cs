@@ -15,6 +15,6 @@ namespace ServiceLayer.CustomerService.DTOCollection
 
         public string Mail { get; set; }
 
-        public ICollection<Cart> Card { get; set; }
+        public ICollection<Cart> Cart { get; set; }
     }
 }

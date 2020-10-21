@@ -2,32 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using ServiceLayer.CustomerService.DTOCollection;
+using ServiceLayer.CustomerService.Services.Interfaces;
 using ServiceLayer.DinoService.DTOCollection;
 using ServiceLayer.DinoService.EnumCollection;
 using ServiceLayer.DinoService.Services;
 using ServiceLayer.DinoService.Services.ServiceInterfaces;
 
-namespace DinosaurShoppen.Pages.DinoList
+namespace DinosaurShoppen.Pages.Administration
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly IDinoService _dinoService;
+        private readonly IDinoAdminService _dinoService;
+        private readonly ICustomerServiceAdmin _adminService;
 
-        public IndexModel(ILogger<IndexModel> logger, IDinoService dinoService)
+        public IndexModel(IDinoAdminService dinoService, ICustomerServiceAdmin serviceAdmin)
         {
-            _logger = logger;
             _dinoService = dinoService;
+            _adminService = serviceAdmin;
         }
-
-        public IList<ListDinoDTO> DinoPromotionList { get; set; }
-        public IList<ListDinoDTO> DinoList { get; set; }
 
         public SortFilterPageOptions Options { get; set; }
 
@@ -49,21 +45,18 @@ namespace DinosaurShoppen.Pages.DinoList
         [BindProperty(SupportsGet = true)]
         public int? OrderBy { get; set; }
 
-        [Display(Name = "Søger på dinosaur navn")]
-        [BindProperty(SupportsGet = true)]
-        public string FilterName { get; set; }
+        public IList<DinosaurDTO> AllDinosaurs { get; set; }
 
         [BindProperty]
-        public int DinoId { get; set; }
+        public DinosaurDTO EditThisDino { get; set; }
+
+        public IList<FullCustomerDTO> AllCustomers { get; set; }
 
         [BindProperty]
-        public uint Antal { get; set; }
+        public FullCustomerDTO EditThisCustomer { get; set; }
 
         public void OnGet()
         {
-            Options = new SortFilterPageOptions();
-            DinoPromotionList = _dinoService.GetTop6PromotionDino().ToList();
-
             if (CurrentPage.HasValue)
             {
                 Options.PageNumber = (int)CurrentPage;
@@ -81,28 +74,7 @@ namespace DinosaurShoppen.Pages.DinoList
                 Options.OrderByOptions = (EnumOrderDinoListByOptions)OrderBy;
             }
 
-            if (string.IsNullOrEmpty(FilterName))
-            {
-                DinoList = _dinoService.GetFullDinoList(Options).ToList();
-            }
-            else
-            {
-                DinoList = _dinoService.GetDinoListWithNameFilter(Options, FilterName).ToList();
-            }
-            
-            TotalPages = Options.PagesCount;
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            int? myId = HttpContext.Session.GetInt32("_customerId");
-
-            if (myId == null || myId == 0)
-            {
-                return RedirectToPage("/Customer/Login");
-            }
-            await _dinoService.AddDinoToCart((int)myId, DinoId, (int)Antal);
-            return RedirectToAction("./");
+            AllDinosaurs = _dinoService.GetFullDinoList(Options).ToList();
         }
     }
 }

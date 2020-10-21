@@ -6,10 +6,7 @@ using ServiceLayer.DinoService.DTOCollection;
 using ServiceLayer.DinoService.MapDTOCollection;
 using ServiceLayer.DinoService.QueryObjects;
 using ServiceLayer.DinoService.Services.ServiceInterfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ServiceLayer.DinoService.Services
@@ -66,54 +63,21 @@ namespace ServiceLayer.DinoService.Services
                 .FirstOrDefault();
         }
 
-        public async Task<DinosaurDTO> AddNewDino(DinosaurDTO newDino)
-        {
-            Dinosaur dino = new Dinosaur()
-            {
-                DinoName = newDino.DinoName,
-                DinoWeight = newDino.DinoWeight,
-                DinoLenght = newDino.DinoLenght,
-                DinoHeight = newDino.DinoHeight,
-                DinoPrice = newDino.DinoPrice,
-                DietId = newDino.DietId,
-                PromotionId = newDino.PromotionId
-            };
-
-            _context.Dinosaurs.Add(dino);
-            await _context.SaveChangesAsync();
-
-            return newDino;
-        }
-
-        public async Task<int> DeleteDinoById(int id)
-        {
-            Dinosaur dino = await _context.Dinosaurs.SingleOrDefaultAsync(d => d.DinosaurId == id);
-
-            if (dino != null)
-            {
-                _context.Dinosaurs.Remove(dino);
-            }
-
-            await _context.SaveChangesAsync();
-
-            return 0;
-        }
-
         public async Task<int> AddDinoToCart(int customerId, int dinoId, int antal)
         {
-            Customer customerCart = await _context.Customers
+            Customer customer = await _context.Customers
                 .Include(c => c.Carts)
                 .FirstOrDefaultAsync(c => c.CustomerId == customerId);
 
-            foreach (Cart item in customerCart.Carts)
+            foreach (Cart item in customer.Carts)
             {
                 if (item.DinosaurId == dinoId)
                 {
                     item.Amound += antal;
+                    await _context.SaveChangesAsync();
                     return 0;
                 }
             }
-
             Cart cart = new Cart() 
             {
                 Amound = antal,
@@ -121,7 +85,9 @@ namespace ServiceLayer.DinoService.Services
                 DinosaurId = dinoId
             };
 
-            _context.Add(cart);
+            customer.Carts.Add(cart);
+
+            _context.Update(customer);
             await _context.SaveChangesAsync();
 
             return 0;

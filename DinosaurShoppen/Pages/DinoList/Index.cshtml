@@ -1,6 +1,7 @@
 ﻿@page
 @model DinosaurShoppen.Pages.DinoList.IndexModel
 @{
+    ViewData["Title"] = "Dinosaur liste";
 }
 
 <div class="card-deck">
@@ -35,51 +36,83 @@
         </select>
     </div>
     <div class="col-2">
+        <br />
         <input type="submit" value="Søg" class="btn btn-primary" />
     </div>
 </form>
+<hr />
 
 <div class="row">
     <div class="col">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DinoList[0].DinoName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DinoList[0].PromotionRabat)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DinoList[0].DinoPrice)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var Dino in Model.DinoList)
-                {
+        @*<table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            @Dino.DinoName
-                        </td>
-                        <td>
-                            @Dino.PromotionRabat%
-                        </td>
-                        <td>
-                            @Dino.DinoPrice.ToString("c")
-                        </td>
-                        <td>
-                            <a asp-page="./Details" asp-route-dinoId="@Dino.DinosaurId">vis mere</a>
-                            <form method="post">
+                        <th>
+                            @Html.DisplayNameFor(model => model.DinoList[0].DinoName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DinoList[0].PromotionRabat)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DinoList[0].DinoPrice)
+                        </th>
+                        <th>@Html.DisplayNameFor(model => model.Antal)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Dino in Model.DinoList)
+                    {
+                        <tr>
+                            <td style="width: 30%;">
+                                @Dino.DinoName
+                            </td>
+                            <td style="width: 20%;">
+                                @Dino.PromotionRabat%
+                            </td>
+                            <td style="width: 20%;">
+                                @Dino.DinoPrice.ToString("c")
+                            </td>
+                            <td style="width: 10%;">
+                                <input asp-for="@Model.Antal" class="form-control" />
+                            </td>
+                            <td style="width: 20%;">
+                                <a asp-page="./Details" asp-route-dinoId="@Dino.DinosaurId">vis mere</a>
+
                                 <input type="hidden" asp-for="@Model.DinoId" value="@Dino.DinosaurId" />
                                 <input type="submit" value="Tilføj kurv" class="btn btn-primary" />
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
+        @foreach (var Dino in Model.DinoList)
+        {
+            <form method="post">
+                <div class="row table">
+                    <div class="col-md-2">
+                        @Dino.DinoName
+                    </div>
+                    <div class="col-md-2">
+                        @Dino.PromotionRabat% Rabat
+                    </div>
+                    <div class="col-md-3">
+                        @Dino.DinoPrice.ToString("c")
+                    </div>
+                    <div class="col-md-2">
+                        <input asp-for="@Model.Antal" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <a asp-page="./Details" asp-route-dinoId="@Dino.DinosaurId">vis mere</a>
+
+                        <input type="hidden" asp-for="@Model.DinoId" value="@Dino.DinosaurId" />
+                        <input type="submit" value="Tilføj kurv" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+            <hr />
+        }
         <div>
             <ul class="pagination">
                 @for (var i = 1; i <= Model.TotalPages; i++)

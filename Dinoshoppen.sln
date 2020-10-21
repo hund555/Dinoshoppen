@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{50AD9626-314D-4C4D-853D-4BDC14C9258B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinosaurShoppen", "DinosaurShoppen\DinosaurShoppen.csproj", "{3AF74553-0E76-43D1-9283-E5496580FCE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinosaurShoppen", "DinosaurShoppen\DinosaurShoppen.csproj", "{3AF74553-0E76-43D1-9283-E5496580FCE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

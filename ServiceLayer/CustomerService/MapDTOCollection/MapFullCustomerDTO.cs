@@ -17,7 +17,7 @@ namespace ServiceLayer.CustomerService.MapDTOCollection
                 Address = c.Address,
                 Mail = c.Mail,
                 Name = c.Name,
-                Card = c.Carts
+                Cart = c.Carts
             });
         }
     }
