@@ -1,0 +1,19 @@
+﻿body {
+}
+.navbar-cart-count {
+    position: absolute;
+    border-radius: 50%;
+    top: -3px;
+    width: 24px;
+    height: 24px;
+    left: 48px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    z-index: 1;
+    line-height: 16px;
+    font-size: 13px;
+    transition: all .2s ease-in-out;
+}

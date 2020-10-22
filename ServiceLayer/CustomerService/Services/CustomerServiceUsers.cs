@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ServiceLayer.CustomerService.Services
 {
@@ -27,11 +28,19 @@ namespace ServiceLayer.CustomerService.Services
                 .SingleOrDefault(c => c.Mail == email);
         }
 
-        public FullCustomerDTO GetCustomerCartById(int customerId)
+        public IQueryable<CustomerCartDTO> GetCustomerCartById(int customerId)
         {
             return _context.Customers
-                .MapFullCustomerToDTO()
-                .SingleOrDefault(c => c.CustomerId == customerId);
+                .Where(c => c.CustomerId == customerId)
+                .Include(c => c.Carts)
+                    .ThenInclude(r => r.Rabat)
+                .Include(c => c.Carts)
+                    .ThenInclude(d => d.Dinosaur)
+                    .ThenInclude(d => d.Diet)
+                .Include(c => c.Carts)
+                    .ThenInclude(d => d.Dinosaur)
+                    .ThenInclude(d => d.Promotion)
+                .MapCustomerCartToDTO();
         }
 
         public int GetCustomerCartItemsCount(int customerId)
@@ -50,6 +59,29 @@ namespace ServiceLayer.CustomerService.Services
                 }
             }
             return itemCount;
+        }
+
+        public async Task<int> RemoveItemsFromCart(int customerId, int dinoId, int antal)
+        {
+            Customer customer = await _context.Customers
+                .Include(c => c.Carts)
+                .SingleOrDefaultAsync(c => c.CustomerId == customerId);
+
+            foreach (Cart item in customer.Carts)
+            {
+                if (item.DinosaurId == dinoId)
+                {
+                    item.Amound -= antal;
+                    if (item.Amound < 0)
+                    {
+                        customer.Carts.Remove(item);
+                    }
+                    await _context.SaveChangesAsync();
+                    return 0;
+                }
+            }
+            
+            return 1;
         }
     }
 }

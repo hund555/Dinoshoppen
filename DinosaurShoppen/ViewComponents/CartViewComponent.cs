@@ -18,7 +18,8 @@ namespace DinosaurShoppen.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            return View(_serviceUsers.GetCustomerCartItemsCount(1));
+            int? id = HttpContext.Session.GetInt32("_customerId");
+            return View(_serviceUsers.GetCustomerCartItemsCount((int)id));
         }
     }
 }

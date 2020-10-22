@@ -118,7 +118,13 @@
                 @for (var i = 1; i <= Model.TotalPages; i++)
                 {
                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a asp-page="./Index" asp-route-currentpage="@i" class="page-link">@i</a>
+                        <a asp-page="./Index" 
+                           asp-route-filtername="@Model.FilterName" 
+                           asp-route-orderby="@Model.OrderBy" 
+                           asp-route-filterdiet="@Model.FilterDiet" 
+                           asp-route-currentpage="@i" 
+                           asp-route-pagesize="@Model.PageSize" 
+                           class="page-link">@i</a>
                     </li>
                 }
             </ul>
