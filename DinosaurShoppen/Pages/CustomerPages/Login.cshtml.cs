@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ServiceLayer.CustomerService.DTOCollection;
 using ServiceLayer.CustomerService.Services.Interfaces;
 
-namespace DinosaurShoppen.Pages.Customer
+namespace DinosaurShoppen.Pages.CustomerPages
 {
     public class LoginModel : PageModel
     {

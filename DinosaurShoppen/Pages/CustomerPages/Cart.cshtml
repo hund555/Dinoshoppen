@@ -1,0 +1,71 @@
+﻿@page
+@model DinosaurShoppen.Pages.CustomerPages.CartModel
+@{
+}
+
+<div class="row">
+    <div class="col">
+        @if (Model.EmptyCart != null)
+        {
+            <div class="alert alert-info col-md-4">@Model.EmptyCart</div>
+        }
+        @foreach (var cartItem in Model.Customer.Carts)
+        {
+            <form method="post">
+                <div class="row table">
+                    <div class="col-md-2">
+                        @cartItem.Dinosaur.DinoName
+                    </div>
+                    <div class="col-md-1">
+                        @cartItem.Dinosaur.Promotion.PromotionRabat% Rabat
+                    </div>
+                    <div class="col-md-2">
+                        @cartItem.Dinosaur.DinoPrice.ToString("c")
+                    </div>
+                    <div class="col-md-1">
+                        @cartItem.Amound
+                    </div>
+                    <div class="col-md-2">
+                        <input asp-for="@Model.AntalRemovedDinoCount" class="form-control" />
+                    </div>
+                    <div class="col-md-2">
+                        <a asp-page="/DinoList/Details" asp-route-dinoId="@cartItem.Dinosaur.DinosaurId">vis mere</a>
+                        <input type="hidden" asp-for="@Model.CustomerId" value="@cartItem.CustomerId" />
+                        <input type="hidden" asp-for="@Model.RemovedDinoId" value="@cartItem.Dinosaur.DinosaurId" />
+                        <input type="submit" value="Fjern Antal" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+            <hr />
+        }
+        <div>
+            Total pris: @Model.TotalPrice.ToString("c")
+        </div>
+        @foreach (var item in Model.Customer.Carts)
+        {
+            if (item.RabatId == null)
+            {
+                <form method="post">
+                    Har du en rabatkode?
+                    <input type="hidden" asp-for="CustomerId" value="@item.CustomerId" />
+                    <input asp-for="RabatNavn" class="form-control col-md-2" />
+                    <input type="submit" class="btn btn-primary" value="Tilføj Rabat" />
+                </form>
+                break;
+            }
+        }
+        @if (Model.Message != null)
+        {
+            <div class="alert alert-info col-md-4">@Model.Message</div>
+        }
+        <form method="post">
+            <input type="hidden" asp-for="@Model.CustomerEmail" value="@Model.Customer.Mail" />
+            <input type="hidden" asp-for="@Model.CustomerId" value="@Model.Customer.CustomerId" />
+            <input type="submit" value="Køb" class="btn btn-primary" />
+        </form>
+        <div>
+            <a asp-page="/DinoList/Index">Fortsæt med at handle</a>
+        </div>
+    </div>
+</div>
+

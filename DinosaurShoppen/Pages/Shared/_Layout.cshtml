@@ -31,7 +31,7 @@
                             @if (test == null || test.Length == 0)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Customer/Login">Login</a>
+                                    <a class="nav-link text-dark" asp-page="/CustomerPages/Login">Login</a>
                                 </li>
                             }
                             else
@@ -40,10 +40,10 @@
                                     <label>@System.Text.Encoding.UTF8.GetString(test, 0, test.Length)</label>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Customer/Login">Log ud</a>
+                                    <a class="nav-link text-dark" asp-page="/CustomerPages/Login">Log ud</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-page="/Customer/Cart">
+                                    <a asp-page="/CustomerPages/Cart">
                                         <vc:cart></vc:cart>
                                     </a>
                                 </li>

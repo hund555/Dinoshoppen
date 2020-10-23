@@ -28,10 +28,9 @@ namespace ServiceLayer.CustomerService.Services
                 .SingleOrDefault(c => c.Mail == email);
         }
 
-        public IQueryable<CustomerCartDTO> GetCustomerCartById(int customerId)
+        public Customer GetCustomerCartById(int customerId)
         {
             return _context.Customers
-                .Where(c => c.CustomerId == customerId)
                 .Include(c => c.Carts)
                     .ThenInclude(r => r.Rabat)
                 .Include(c => c.Carts)
@@ -40,7 +39,7 @@ namespace ServiceLayer.CustomerService.Services
                 .Include(c => c.Carts)
                     .ThenInclude(d => d.Dinosaur)
                     .ThenInclude(d => d.Promotion)
-                .MapCustomerCartToDTO();
+                .SingleOrDefault(c => c.CustomerId == customerId);
         }
 
         public int GetCustomerCartItemsCount(int customerId)
@@ -81,6 +80,30 @@ namespace ServiceLayer.CustomerService.Services
                 }
             }
             
+            return 1;
+        }
+
+        public async Task<int> AddRabatToCart(string rabatName, int customerId)
+        {
+            Rabat rabat = await _context.Rabats
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.RabatName == rabatName && r.SoftDelete != true);
+
+            Customer customer = await _context.Customers
+                .Include(c => c.Carts)
+                .SingleOrDefaultAsync(c => c.CustomerId == customerId);
+
+            if (rabat != null && customer != null)
+            {
+                foreach (Cart item in customer.Carts)
+                {
+                    item.RabatId = rabat.RabatId;
+                }
+
+                await _context.SaveChangesAsync();
+                return 0;
+            }
+
             return 1;
         }
     }

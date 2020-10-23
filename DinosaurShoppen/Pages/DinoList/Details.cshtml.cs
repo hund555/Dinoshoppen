@@ -37,7 +37,7 @@ namespace DinosaurShoppen.Pages.DinoList
 
             if (myId == null || myId == 0)
             {
-                return RedirectToPage("/Customer/Login");
+                return RedirectToPage("/CustomerPages/Login");
             }
             await _dinoService.AddDinoToCart((int)myId, DinoId, (int)Antal);
             return RedirectToAction("./");
