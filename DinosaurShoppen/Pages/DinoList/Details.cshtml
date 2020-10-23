@@ -45,7 +45,7 @@
             @Html.DisplayNameFor(model => model.Dinosaur.DinoPrice)
         </dt>
         <dd class="col-md-10">
-            @Html.DisplayFor(model => model.Dinosaur.DinoPrice)
+            @Model.Dinosaur.DinoPrice.ToString("c")
         </dd>
         @if (!string.IsNullOrEmpty(Model.Dinosaur.PromotionName))
         {

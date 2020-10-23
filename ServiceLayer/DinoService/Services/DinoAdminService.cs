@@ -39,7 +39,8 @@ namespace ServiceLayer.DinoService.Services
                 DinoHeight = newDino.DinoHeight,
                 DinoPrice = newDino.DinoPrice,
                 DietId = newDino.DietId,
-                PromotionId = newDino.PromotionId
+                PromotionId = newDino.PromotionId,
+                DinoPicture = newDino.DinoPicture
             };
 
             _context.Dinosaurs.Add(dino);
@@ -61,5 +62,11 @@ namespace ServiceLayer.DinoService.Services
             return 0;
         }
 
+        public IQueryable<PromotionListDTO> PromotionList()
+        {
+            return _context.Promotions
+                .AsNoTracking()
+                .MapPromotionListToDTO();
+        }
     }
 }

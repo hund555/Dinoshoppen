@@ -18,7 +18,7 @@ namespace ServiceLayer.DinoService.MapDTOCollection
                 DinoWeight = d.DinoWeight,
                 DinoHeight = d.DinoHeight,
                 DinoLenght = d.DinoLenght,
-                DinoPrice = d.DinoPrice - (d.DinoPrice / 100 * d.Promotion.PromotionRabat),
+                DinoPrice = d.DinoPrice,
                 DinoPicture = d.DinoPicture,
 
                 PromotionId = d.PromotionId,

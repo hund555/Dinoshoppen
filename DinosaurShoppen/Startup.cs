@@ -38,8 +38,12 @@ namespace DinosaurShoppen
             });
 
             services.AddDbContext<DinoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<ICustomerServiceUsers, CustomerServiceUsers>();
+            services.AddScoped<ICustomerServiceAdmin, CustomerServiceAdmin>();
             services.AddScoped<IDinoService, DinoService>();
+            services.AddScoped<IDinoAdminService, DinoAdminService>();
+            
 
             services.AddMiniProfiler(options => {
                 options.ColorScheme = StackExchange.Profiling.ColorScheme.Dark;

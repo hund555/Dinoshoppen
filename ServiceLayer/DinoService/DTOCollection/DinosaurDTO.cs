@@ -31,7 +31,7 @@ namespace ServiceLayer.DinoService.DTOCollection
         [Display(Name = "Kampagne")]
         public string PromotionName { get; set; }
         [Display(Name = "Rabat")]
-        public int? PromotionRabat { get; set; }
+        public int PromotionRabat { get; set; }
 
         public int DietId { get; set; } //FK
         [Display(Name = "Diet")]

@@ -29,6 +29,8 @@ namespace DinosaurShoppen.Pages.DinoList
         public void OnGet()
         {
             Dinosaur = _dinoService.GetDinoById(DinoId);
+
+            Dinosaur.DinoPrice -= Dinosaur.DinoPrice / 100 * Dinosaur.PromotionRabat;
         }
 
         public async Task<IActionResult> OnPostAsync()

@@ -6,18 +6,20 @@ Jeg har fået til opgave at lave en E Shop, hvor jeg har valgt at lave en dinosau
 ## CRUD Dinosaur shoppen
 - [x] Tilføjelse af ny dinosaur
 - [x] Hente 6 dinosaurere som har en promotion
-- [ ] Hente alle dinosaurere til en liste
-- [ ] Hente tetaljer om om dinosaur på id
+- [x] Hente alle dinosaurere til en liste
+- [x] Hente detaljer om dinosaur på id
 - [ ] Slette en dinosaur
 - [ ] Updatere en dinosaur
 - [ ] Lave en ny promotion
 - [ ] Oprette en ny kunde
-- [ ] Hente en kundes kurv
-- [ ] Slette fra en kurv
+- [x] Hente en kundes kurv
+- [x] Slette fra en kurv
 - [ ] Oprette en rabat som kunder kan bruge
 - [ ] Fjerne promotioner
 - [ ] Fjerne rabatter
 - [ ] Fjerne kunder
+- [x] Tilføje rabat til kundes kurv
+- [x] Page sorter og filter på dinosaur listen
 
 ## ER Diagram
 

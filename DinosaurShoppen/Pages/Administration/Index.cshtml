@@ -2,3 +2,136 @@
 @model DinosaurShoppen.Pages.Administration.IndexModel
 @{
 }
+<a href="" id="btnAddDino" class="btn-link" data-toggle="modal" data-target="#AddDino" >Tilføj dinosaur</a>
+<form method="get" class="row">
+    <div class="col-3">
+        <label asp-for="FilterDiet" class="control-label"></label>
+        <select asp-for="FilterDiet" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumDinoFilter>()" class="form-control"></select>
+    </div>
+    <div class="col-2">
+        <label asp-for="OrderBy" class="control-label"></label>
+        <select asp-for="OrderBy" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumOrderDinoListByOptions>()" class="form-control"></select>
+    </div>
+    <div class="col-2">
+        <label asp-for="PageSize" class="control-label"></label>
+        <select asp-for="PageSize" class="form-control">
+            <option value="12">12</option>
+            <option value="24">24</option>
+            <option value="36">36</option>
+            <option value="48">48</option>
+            <option value="60">60</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <br />
+        <input type="submit" value="Søg" class="btn btn-primary" />
+    </div>
+</form>
+<hr />
+
+<div class="row">
+    <div class="col">
+        @foreach (var Dino in Model.AllDinosaurs)
+        {
+            <form method="post">
+                <div class="row table">
+                    <div class="col-md-2">
+                        @Dino.DinoName
+                    </div>
+                    <div class="col-md-2">
+                        @Dino.PromotionRabat% Rabat
+                    </div>
+                    <div class="col-md-3">
+                        @Dino.DinoPrice.ToString("c")
+                    </div>
+                    <div class="col-md-2">
+                        @Dino.DietName
+                    </div>
+                    <div class="col-md-3">
+                        <input type="hidden" asp-for="DeletedDinoId" value="@Dino.DinosaurId" />
+                        <input type="submit" value="Slet" class="btn btn-primary" />
+                        <a>Redigér</a>
+                    </div>
+                </div>
+            </form>
+            <hr />
+        }
+        <div>
+            <ul class="pagination">
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a asp-page="./Index"
+                           asp-route-orderby="@Model.OrderBy"
+                           asp-route-filterdiet="@Model.FilterDiet"
+                           asp-route-currentpage="@i"
+                           asp-route-pagesize="@Model.PageSize"
+                           class="page-link">@i</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div id="AddDino" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AddDino" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-center">Udfyld skema for at tilføje ny dinosaur</h5>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Navngiv dinosauren</label>
+                                <input class="form-control" asp-for="@Model.AddNewDino.DinoName" />
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Diet</label>
+                                <select asp-for="@Model.AddNewDino.DietId" class="form-control">
+                                    <option selected="selected" value="1">Kødæder</option>
+                                    <option value="2">Planteæder</option>
+                                    <option value="3">Alt spisende</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Kampagne</label>
+                                <select class="form-control" asp-for="@Model.AddNewDino.PromotionId" asp-items="@Model.PromotionsDDL">
+                                    <option selected="selected" value="null">Vælg Kampagne</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Indtast Pris</label>
+                                <input class="form-control" asp-for="@Model.AddNewDino.DinoPrice" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Vægt i kg</label>
+                                <input class="form-control" type="number" asp-for="@Model.AddNewDino.DinoWeight" />
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Højde i meter</label>
+                                <input class="form-control" type="number" asp-for="@Model.AddNewDino.DinoHeight" />
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Længde i meter</label>
+                                <input class="form-control" type="number" asp-for="@Model.AddNewDino.DinoLenght" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" value="Tilføj billede" asp-for="@Model.Picture" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuller</button>
+                            <input type="submit" class="btn btn-primary" value="Tilføj" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
