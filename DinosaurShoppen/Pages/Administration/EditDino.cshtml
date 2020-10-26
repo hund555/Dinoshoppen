@@ -1,0 +1,58 @@
+﻿@page "{DinosaurId:int?}"
+@model DinosaurShoppen.Pages.Administration.EditDinoModel
+@{
+    ViewData["Title"] = "Redigér";
+}
+
+<h2>Redigér @Model.Dinosaur.DinoName</h2>
+<img src="@Model.Dinosaur.DinoPicture" class="img-thumbnail my-4" alt="DinoBillede" />
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label class="col-form-label">Navngiv dinosauren</label>
+                <input class="form-control" asp-for="@Model.Dinosaur.DinoName" />
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Diet</label>
+                <select asp-for="@Model.Dinosaur.DietId" class="form-control">
+                    <option selected="selected" value="1">Kødæder</option>
+                    <option value="2">Planteæder</option>
+                    <option value="3">Alt spisende</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Kampagne</label>
+                <select class="form-control" asp-for="@Model.Dinosaur.PromotionId" asp-items="@Model.PromotionsDDL">
+                    <option selected="selected" value="null">Vælg Kampagne</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Indtast Pris</label>
+                <input class="form-control" asp-for="@Model.Dinosaur.DinoPrice" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label class="col-form-label">Vægt i kg</label>
+                <input class="form-control" type="number" asp-for="@Model.Dinosaur.DinoWeight" />
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Højde i meter</label>
+                <input class="form-control" type="number" asp-for="@Model.Dinosaur.DinoHeight" />
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Længde i meter</label>
+                <input class="form-control" type="number" asp-for="@Model.Dinosaur.DinoLenght" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="file" value="Tilføj billede" asp-for="@Model.Picture" />
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuller</button>
+            <input type="submit" class="btn btn-primary" value="Tilføj" />
+        </div>
+    </div>
+</form>

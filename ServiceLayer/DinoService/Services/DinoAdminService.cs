@@ -48,6 +48,14 @@ namespace ServiceLayer.DinoService.Services
 
             return newDino;
         }
+
+        public DinosaurDTO GetDinosaurDTOById(int dinoId)
+        {
+            return _context.Dinosaurs
+                .MapDinoToDto()
+                .FirstOrDefault(d => d.DinosaurId == dinoId);
+        }
+
         public async Task<int> DeleteDinoById(int id)
         {
             Dinosaur dino = await _context.Dinosaurs.SingleOrDefaultAsync(d => d.DinosaurId == id);

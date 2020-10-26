@@ -56,13 +56,7 @@ namespace DinosaurShoppen.Pages.Administration
         [BindProperty]
         public DinosaurDTO AddNewDino { get; set; }
 
-        [BindProperty]
-        public DinosaurDTO EditThisDino { get; set; }
-
         public IList<FullCustomerDTO> AllCustomers { get; set; }
-
-        [BindProperty]
-        public FullCustomerDTO EditThisCustomer { get; set; }
 
         [BindProperty]
         public int DeletedDinoId { get; set; }
