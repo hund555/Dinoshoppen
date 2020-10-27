@@ -54,10 +54,6 @@ namespace DataLayer
                 .Property(p => p.SoftDelete)
                 .HasDefaultValue(false);
 
-            modelBuilder.Entity<Dinosaur>()
-                .Property(d => d.DinoPicture)
-                .HasDefaultValue("~/img/Default.jpg");
-
             modelBuilder.Entity<Diet>().HasData(
                 new Diet { DietId = 1, DietName = "Carnivore" },
                 new Diet { DietId = 2, DietName = "Herbivore" },
@@ -69,10 +65,10 @@ namespace DataLayer
                 );
 
             modelBuilder.Entity<Dinosaur>().HasData(
-                new Dinosaur { DinosaurId = 1, DinoName = "Tyrannosaurus Rex", DinoWeight = 14000, DinoLenght = 13, DinoHeight = 6.1, DinoPrice = 11650000, DinoPicture = "~/img/Default.jpg", DietId = 1, PromotionId = 1 },
-                new Dinosaur { DinosaurId = 2, DinoName = "Carnotaurus", DinoWeight = 3000, DinoLenght = 9, DinoHeight = 3, DinoPrice = 3500000, DinoPicture = "~/img/Default.jpg", DietId = 1, PromotionId = 1 },
-                new Dinosaur { DinosaurId = 3, DinoName = "Brontosaurus", DinoWeight = 15000, DinoLenght = 22, DinoHeight = 6, DinoPrice = 15000000, DinoPicture = "~/img/Default.jpg", DietId = 2, PromotionId = 1 },
-                new Dinosaur { DinosaurId = 4, DinoName = "Ornithomimus", DinoWeight = 170, DinoLenght = 3.8, DinoHeight = 4.5, DinoPrice = 365000, DinoPicture = "~/img/Default.jpg", DietId = 3, PromotionId = 1 }
+                new Dinosaur { DinosaurId = 1, DinoName = "Tyrannosaurus Rex", DinoWeight = 14000, DinoLenght = 13, DinoHeight = 6.1, DinoPrice = 11650000, DietId = 1, PromotionId = 1 },
+                new Dinosaur { DinosaurId = 2, DinoName = "Carnotaurus", DinoWeight = 3000, DinoLenght = 9, DinoHeight = 3, DinoPrice = 3500000, DietId = 1, PromotionId = 1 },
+                new Dinosaur { DinosaurId = 3, DinoName = "Brontosaurus", DinoWeight = 15000, DinoLenght = 22, DinoHeight = 6, DinoPrice = 15000000, DietId = 2, PromotionId = 1 },
+                new Dinosaur { DinosaurId = 4, DinoName = "Ornithomimus", DinoWeight = 170, DinoLenght = 3.8, DinoHeight = 4.5, DinoPrice = 365000, DietId = 3, PromotionId = 1 }
                 );
 
             modelBuilder.Entity<Customer>().HasData(

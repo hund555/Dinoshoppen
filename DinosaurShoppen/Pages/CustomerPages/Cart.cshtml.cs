@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ServiceLayer.CustomerService.Services.Interfaces;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DinosaurShoppen.Pages.CustomerPages
@@ -22,9 +24,6 @@ namespace DinosaurShoppen.Pages.CustomerPages
 
         [BindProperty]
         public int CustomerId { get; set; }
-
-        [BindProperty]
-        public string CustomerEmail { get; set; }
 
         [BindProperty]
         public string RabatNavn { get; set; }
@@ -53,7 +52,9 @@ namespace DinosaurShoppen.Pages.CustomerPages
             TotalPrice = 0;
             foreach (var item in Customer.Carts)
             {
-                TotalPrice += (item.Dinosaur.DinoPrice - (item.Dinosaur.DinoPrice / 100 * item.Dinosaur.Promotion.PromotionRabat)) * item.Amound;
+                item.Dinosaur.DinoPrice = item.Dinosaur.DinoPrice - (item.Dinosaur.DinoPrice / 100 * item.Dinosaur.Promotion.PromotionRabat);
+                
+                TotalPrice += item.Dinosaur.DinoPrice * item.Amound;
                 if (item.RabatId != null)
                 {
                     TotalPrice -= TotalPrice / 100 * item.Rabat.RabatProcent;
@@ -82,12 +83,6 @@ namespace DinosaurShoppen.Pages.CustomerPages
                     Message = "Kunne ikke genkende rabatkoden";
                 }
                 return RedirectToPage("./Cart");
-            }
-
-            if (CustomerId > 0 && !string.IsNullOrEmpty(CustomerEmail))
-            {
-                //send mail kommer
-                return RedirectToPage("/DinoList/Index");
             }
 
             return RedirectToPage("/Error");

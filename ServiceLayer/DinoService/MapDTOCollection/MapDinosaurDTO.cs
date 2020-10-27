@@ -30,5 +30,23 @@ namespace ServiceLayer.DinoService.MapDTOCollection
             });
         }
 
+        public static Dinosaur MapDtoToDinosaur(this DinosaurDTO dinoDto)
+        {
+            Dinosaur dino = new Dinosaur()
+            {
+                DinosaurId = dinoDto.DinosaurId,
+                DietId = dinoDto.DietId,
+                DinoName = dinoDto.DinoName,
+                DinoHeight = dinoDto.DinoHeight,
+                DinoLenght = dinoDto.DinoLenght,
+                DinoWeight = dinoDto.DinoWeight,
+                DinoPrice = dinoDto.DinoPrice,
+                PromotionId = dinoDto.PromotionId,
+                DinoPicture = dinoDto.DinoPicture
+            };
+
+            return dino;
+        }
+
     }
 }

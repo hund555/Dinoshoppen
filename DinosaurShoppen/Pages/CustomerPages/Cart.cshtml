@@ -58,11 +58,7 @@
         {
             <div class="alert alert-info col-md-4">@Model.Message</div>
         }
-        <form method="post">
-            <input type="hidden" asp-for="@Model.CustomerEmail" value="@Model.Customer.Mail" />
-            <input type="hidden" asp-for="@Model.CustomerId" value="@Model.Customer.CustomerId" />
-            <input type="submit" value="Køb" class="btn btn-primary" />
-        </form>
+            <a asp-page="./Recept" class="btn btn-primary" onclick="return confirm('Er du sikker på du vil købe de viste ting nu?')" >Køb</a>
         <div>
             <a asp-page="/DinoList/Index">Fortsæt med at handle</a>
         </div>

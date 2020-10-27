@@ -1,0 +1,28 @@
+﻿@page
+@model DinosaurShoppen.Pages.CustomerPages.ReceptModel
+@{
+}
+<h1>Tak for dit køb</h1>
+<hr />
+
+@foreach (var cartItem in Model.Customer.Carts)
+{
+    <div class="row table">
+        <div class="col-md-2">
+            @cartItem.Dinosaur.DinoName
+        </div>
+        <div class="col-md-1">
+            @cartItem.Dinosaur.Promotion.PromotionRabat% Rabat
+        </div>
+        <div class="col-md-2">
+            @cartItem.Dinosaur.DinoPrice.ToString("c")
+        </div>
+        <div class="col-md-1">
+            @cartItem.Amound
+        </div>
+    </div>
+    <hr />
+}
+<div>
+    Total pris: @Model.TotalPrice.ToString("c")
+</div>

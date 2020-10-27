@@ -14,6 +14,8 @@ using ServiceLayer.CustomerService.Services;
 using ServiceLayer.CustomerService.Services.Interfaces;
 using ServiceLayer.DinoService.Services;
 using ServiceLayer.DinoService.Services.ServiceInterfaces;
+using ServiceLayer.Rabat_PromotionService.Services;
+using ServiceLayer.Rabat_PromotionService.Services.Interfaces;
 
 namespace DinosaurShoppen
 {
@@ -43,7 +45,7 @@ namespace DinosaurShoppen
             services.AddScoped<ICustomerServiceAdmin, CustomerServiceAdmin>();
             services.AddScoped<IDinoService, DinoService>();
             services.AddScoped<IDinoAdminService, DinoAdminService>();
-            
+            services.AddScoped<IRabatService, RabatService>();
 
             services.AddMiniProfiler(options => {
                 options.ColorScheme = StackExchange.Profiling.ColorScheme.Dark;

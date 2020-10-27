@@ -3,7 +3,15 @@
 
 <div class="col-sm-4">
     <div class="card my-4">
-        <img asp-append-version="true" src="@Model.DinoPicture" class="img-fluid"  />
+        @if (string.IsNullOrEmpty(Model.DinoPicture))
+        {
+            <img asp-append-version="true" src="~/img/Default.jpg" class="img-fluid" />
+        }
+        else
+        {
+            <img asp-append-version="true" src="~/img/@Model.DinosaurId.@Model.DinoPicture" class="img-fluid" />
+        }
+
         <div class="card-body">
             <h4 class="card-title">@Model.DinoName</h4>
             <p class="card-text">Diet: @Model.DietName</p>

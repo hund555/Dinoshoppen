@@ -29,7 +29,7 @@ namespace ServiceLayer.DinoService.Services
             return dinoList.Page(options.PageNumber - 1, options.PageSize);
         }
 
-        public async Task<DinosaurDTO> AddNewDino(DinosaurDTO newDino)
+        public async Task<int> AddNewDino(DinosaurDTO newDino)
         {
             Dinosaur dino = new Dinosaur()
             {
@@ -46,7 +46,7 @@ namespace ServiceLayer.DinoService.Services
             _context.Dinosaurs.Add(dino);
             await _context.SaveChangesAsync();
 
-            return newDino;
+            return dino.DinosaurId;
         }
 
         public DinosaurDTO GetDinosaurDTOById(int dinoId)
@@ -75,6 +75,17 @@ namespace ServiceLayer.DinoService.Services
             return _context.Promotions
                 .AsNoTracking()
                 .MapPromotionListToDTO();
+        }
+
+        public async Task<int> UpdateDinosaur(DinosaurDTO updatedDino)
+        {
+            //var dino = _context.Dinosaurs.SingleOrDefaultAsync(d => d.DinosaurId == updatedDino.DinosaurId);
+
+            _context.Dinosaurs.Update(updatedDino.MapDtoToDinosaur());
+
+            await _context.SaveChangesAsync();
+
+            return 0;
         }
     }
 }

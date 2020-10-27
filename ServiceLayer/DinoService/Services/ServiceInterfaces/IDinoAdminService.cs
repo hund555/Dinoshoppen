@@ -6,10 +6,11 @@ namespace ServiceLayer.DinoService.Services.ServiceInterfaces
 {
     public interface IDinoAdminService
     {
-        Task<DinosaurDTO> AddNewDino(DinosaurDTO newDino);
+        Task<int> AddNewDino(DinosaurDTO newDino);
         Task<int> DeleteDinoById(int id);
         IQueryable<DinosaurDTO> GetFullDinoList(SortFilterPageOptions options);
         IQueryable<PromotionListDTO> PromotionList();
         DinosaurDTO GetDinosaurDTOById(int dinoId);
+        Task<int> UpdateDinosaur(DinosaurDTO updatedDino);
     }
 }

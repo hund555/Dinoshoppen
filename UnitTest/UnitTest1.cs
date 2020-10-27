@@ -22,7 +22,7 @@ namespace UnitTest
             //ACT 
             using (DinoDbContext context = new DinoDbContext(options))
             {
-                DinoService service = new DinoService(context);
+                DinoAdminService service = new DinoAdminService(context);
 
                 DinosaurDTO dinosaur = new DinosaurDTO()
                 {

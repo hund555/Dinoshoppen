@@ -4,14 +4,16 @@ using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(DinoDbContext))]
-    partial class DinoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201027085410_Removed_DefaultPicturePath")]
+    partial class Removed_DefaultPicturePath
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,6 +178,7 @@ namespace DataLayer.Migrations
                             DinoHeight = 6.0999999999999996,
                             DinoLenght = 13.0,
                             DinoName = "Tyrannosaurus Rex",
+                            DinoPicture = "jpg",
                             DinoPrice = 11650000.0,
                             DinoWeight = 14000.0,
                             PromotionId = 1
@@ -187,6 +190,7 @@ namespace DataLayer.Migrations
                             DinoHeight = 3.0,
                             DinoLenght = 9.0,
                             DinoName = "Carnotaurus",
+                            DinoPicture = "jpg",
                             DinoPrice = 3500000.0,
                             DinoWeight = 3000.0,
                             PromotionId = 1
@@ -198,6 +202,7 @@ namespace DataLayer.Migrations
                             DinoHeight = 6.0,
                             DinoLenght = 22.0,
                             DinoName = "Brontosaurus",
+                            DinoPicture = "jpg",
                             DinoPrice = 15000000.0,
                             DinoWeight = 15000.0,
                             PromotionId = 1
@@ -209,6 +214,7 @@ namespace DataLayer.Migrations
                             DinoHeight = 4.5,
                             DinoLenght = 3.7999999999999998,
                             DinoName = "Ornithomimus",
+                            DinoPicture = "jpg",
                             DinoPrice = 365000.0,
                             DinoWeight = 170.0,
                             PromotionId = 1

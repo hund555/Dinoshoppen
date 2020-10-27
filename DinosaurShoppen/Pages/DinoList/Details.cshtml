@@ -9,7 +9,15 @@
 <div>
     <dl class="row">
         <dd class="col-md-12">
-            <img asp-append-version="true" src="@Model.Dinosaur.DinoPicture" style="max-height: 150px; max-width: 150px;" />
+            @if (string.IsNullOrEmpty(Model.Dinosaur.DinoPicture))
+            {
+                <img asp-append-version="true" src="~/img/Default.jpg" style="max-height: 150px; max-width: 150px;" />
+            }
+            else
+            {
+                <img asp-append-version="true" src="~/img/@Model.Dinosaur.DinosaurId.@Model.Dinosaur.DinoPicture" style="max-height: 150px; max-width: 150px;" />
+            }
+
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Dinosaur.DinoName)
@@ -67,7 +75,7 @@
 <div class="col-md-4">
     <form method="post">
         <input asp-for="@Model.Antal" class="form-control" /><br />
-        <input type="hidden" asp-for="DinoId" value="@Model.Dinosaur.DinosaurId"  />
+        <input type="hidden" asp-for="DinoId" value="@Model.Dinosaur.DinosaurId" />
         <input type="submit" value="Tilføj til kurv" class="btn btn-primary" />
     </form>
     <a asp-page="./Index">Tilbage</a>

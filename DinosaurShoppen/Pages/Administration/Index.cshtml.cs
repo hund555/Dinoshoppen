@@ -100,24 +100,37 @@ namespace DinosaurShoppen.Pages.Administration
         {
             if (DeletedDinoId > 0)
             {
+                DinosaurDTO dino = _dinoService.GetDinosaurDTOById(DeletedDinoId);
+
                 await _dinoService.DeleteDinoById(DeletedDinoId);
+
+                if (dino != null && !string.IsNullOrEmpty(dino.DinoPicture))
+                {
+                    string file = Path.Combine(_webHost.WebRootPath, "img", dino.DinosaurId + "." + dino.DinoPicture);
+
+                    System.IO.File.Delete(file);
+                }
+                
                 return RedirectToPage("./Index");
             }
 
             if (AddNewDino != null)
             {
                 string fileExtension = Picture.FileName.Split('.').Last().ToLower();
+                
                 if (fileExtension == "jpg" || fileExtension == "jpeg" || fileExtension == "png")
                 {
-                    string file = Path.Combine(_webHost.WebRootPath, "img", Picture.FileName);
+                    AddNewDino.DinoPicture = fileExtension;
+
+                    int dinoId = await _dinoService.AddNewDino(AddNewDino);
+
+                    string file = Path.Combine(_webHost.WebRootPath, "img", dinoId + "." + fileExtension);
                     using (FileStream fileStream = new FileStream(file, FileMode.Create))
                     {
                         await Picture.CopyToAsync(fileStream);
                     }
-                    AddNewDino.DinoPicture = "~/img/" + Picture.FileName;
                 }
-                
-                await _dinoService.AddNewDino(AddNewDino);
+
                 return RedirectToPage("./Index");
             }
             return RedirectToPage("./Index");
