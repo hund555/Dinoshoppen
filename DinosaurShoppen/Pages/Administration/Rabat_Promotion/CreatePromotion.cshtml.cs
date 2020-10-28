@@ -12,13 +12,13 @@ using ServiceLayer.Rabat_PromotionService.DTOCollection;
 
 namespace DinosaurShoppen.Pages.Administration.Rabat_Promotion
 {
-    public class CreateRabatModel : PageModel
+    public class CreatePromotionModel : PageModel
     {
-        private readonly IRabatService _rabatService;
+        private readonly IPromotionService _promotionService;
 
-        public CreateRabatModel(IRabatService rabatService)
+        public CreatePromotionModel(IPromotionService promotionService)
         {
-            _rabatService = rabatService;
+            _promotionService = promotionService;
         }
 
         public IActionResult OnGet()
@@ -27,7 +27,7 @@ namespace DinosaurShoppen.Pages.Administration.Rabat_Promotion
         }
 
         [BindProperty]
-        public RabatDTO Rabat { get; set; }
+        public PromotionDTO Promotion { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -36,7 +36,7 @@ namespace DinosaurShoppen.Pages.Administration.Rabat_Promotion
                 return Page();
             }
 
-            await _rabatService.AddNewRabat(Rabat);
+            await _promotionService.AddNewPromotion(Promotion);
 
             return RedirectToPage("/Administration/Index");
         }

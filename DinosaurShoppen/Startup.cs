@@ -46,6 +46,7 @@ namespace DinosaurShoppen
             services.AddScoped<IDinoService, DinoService>();
             services.AddScoped<IDinoAdminService, DinoAdminService>();
             services.AddScoped<IRabatService, RabatService>();
+            services.AddScoped<IPromotionService, PromotionService>();
 
             services.AddMiniProfiler(options => {
                 options.ColorScheme = StackExchange.Profiling.ColorScheme.Dark;

@@ -41,8 +41,6 @@ namespace DinosaurShoppen.Pages.Administration.Rabat_Promotion
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -52,7 +50,7 @@ namespace DinosaurShoppen.Pages.Administration.Rabat_Promotion
 
             await _rabatService.UpdateRabat(Rabat);
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Administration/Index");
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using DataLayer;
 using DataLayer.Entities;
 using ServiceLayer.Rabat_PromotionService.Services.Interfaces;
@@ -12,22 +13,33 @@ using ServiceLayer.Rabat_PromotionService.DTOCollection;
 
 namespace DinosaurShoppen.Pages.Administration.Rabat_Promotion
 {
-    public class CreateRabatModel : PageModel
+    public class EditPromotionModel : PageModel
     {
-        private readonly IRabatService _rabatService;
+        private readonly IPromotionService _promotionService;
 
-        public CreateRabatModel(IRabatService rabatService)
+        public EditPromotionModel(IPromotionService promotionService)
         {
-            _rabatService = rabatService;
-        }
-
-        public IActionResult OnGet()
-        {
-            return Page();
+            _promotionService = promotionService;
         }
 
         [BindProperty]
-        public RabatDTO Rabat { get; set; }
+        public PromotionDTO Promotion { get; set; }
+
+        public IActionResult OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Promotion = _promotionService.GetPromotionDTOById((int)id);
+
+            if (Promotion == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -36,7 +48,7 @@ namespace DinosaurShoppen.Pages.Administration.Rabat_Promotion
                 return Page();
             }
 
-            await _rabatService.AddNewRabat(Rabat);
+            await _promotionService.UpdatePromotion(Promotion);
 
             return RedirectToPage("/Administration/Index");
         }

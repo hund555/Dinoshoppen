@@ -62,5 +62,12 @@ namespace ServiceLayer.Rabat_PromotionService.Services
                 .MapRabatToDTO()
                 .FirstOrDefault(r => r.RabatId == rabatId);
         }
+
+        public IQueryable<RabatDTO> GetAllRabats()
+        {
+            return _context.Rabats
+                .MapRabatToDTO()
+                .AsNoTracking();
+        }
     }
 }

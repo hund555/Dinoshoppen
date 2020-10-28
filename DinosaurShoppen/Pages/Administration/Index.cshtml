@@ -2,75 +2,155 @@
 @model DinosaurShoppen.Pages.Administration.IndexModel
 @{
 }
-<a href="" id="btnAddDino" class="btn-link" data-toggle="modal" data-target="#AddDino" >Tilføj dinosaur</a>
-<form method="get" class="row">
-    <div class="col-3">
-        <label asp-for="FilterDiet" class="control-label"></label>
-        <select asp-for="FilterDiet" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumDinoFilter>()" class="form-control"></select>
-    </div>
-    <div class="col-2">
-        <label asp-for="OrderBy" class="control-label"></label>
-        <select asp-for="OrderBy" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumOrderDinoListByOptions>()" class="form-control"></select>
-    </div>
-    <div class="col-2">
-        <label asp-for="PageSize" class="control-label"></label>
-        <select asp-for="PageSize" class="form-control">
-            <option value="12">12</option>
-            <option value="24">24</option>
-            <option value="36">36</option>
-            <option value="48">48</option>
-            <option value="60">60</option>
-        </select>
-    </div>
-    <div class="col-2">
-        <br />
-        <input type="submit" value="Søg" class="btn btn-primary" />
-    </div>
-</form>
-<hr />
+<a href="" id="btnAddDino" class="btn btn-primary" data-toggle="modal" data-target="#AddDino" >Tilføj dinosaur</a>
+<a asp-page="./Rabat_Promotion/CreateRabat" class="btn btn-primary" >Opret rabatkode</a>
+<a asp-page="./Rabat_Promotion/CreatePromotion" class="btn btn-primary" >Opret kampagne</a>
+<div class="row">
+    <div class="col-md-8">
+        <form method="get" class="row">
+            <div class="col-3">
+                <label asp-for="FilterDiet" class="control-label"></label>
+                <select asp-for="FilterDiet" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumDinoFilter>()" class="form-control"></select>
+            </div>
+            <div class="col-2">
+                <label asp-for="OrderBy" class="control-label"></label>
+                <select asp-for="OrderBy" asp-items="Html.GetEnumSelectList<ServiceLayer.DinoService.EnumCollection.EnumOrderDinoListByOptions>()" class="form-control"></select>
+            </div>
+            <div class="col-2">
+                <label asp-for="PageSize" class="control-label"></label>
+                <select asp-for="PageSize" class="form-control">
+                    <option value="12">12</option>
+                    <option value="24">24</option>
+                    <option value="36">36</option>
+                    <option value="48">48</option>
+                    <option value="60">60</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <br />
+                <input type="submit" value="Søg" class="btn btn-primary" />
+            </div>
+        </form>
+        <hr />
 
+        <div class="row">
+            <div class="col">
+                @foreach (var Dino in Model.AllDinosaurs)
+                {
+                    <form method="post">
+                        <div class="row table">
+                            <div class="col-md-2">
+                                @Dino.DinoName
+                            </div>
+                            <div class="col-md-2">
+                                @Dino.PromotionRabat% Rabat
+                            </div>
+                            <div class="col-md-3">
+                                @Dino.DinoPrice.ToString("c")
+                            </div>
+                            <div class="col-md-2">
+                                @Dino.DietName
+                            </div>
+                            <div class="col-md-3">
+                                <input type="hidden" asp-for="DeletedDinoId" value="@Dino.DinosaurId" />
+                                <input type="submit" value="Slet" class="btn btn-primary" />
+                                <a asp-page="./EditDino" class="btn btn-primary" asp-route-dinosaurId="@Dino.DinosaurId">Redigér</a>
+                            </div>
+                        </div>
+                    </form>
+                    <hr />
+                }
+                <div>
+                    <ul class="pagination">
+                        @for (var i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a asp-page="./Index"
+                                   asp-route-orderby="@Model.OrderBy"
+                                   asp-route-filterdiet="@Model.FilterDiet"
+                                   asp-route-currentpage="@i"
+                                   asp-route-pagesize="@Model.PageSize"
+                                   class="page-link">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col">
+                <div class="row table">
+                    <div class="col-md-4">
+                        @Html.DisplayNameFor(model => model.Rabats[0].RabatName)
+                    </div>
+                    <div class="col-md-6">
+                        @Html.DisplayNameFor(model => model.Rabats[0].RabatProcent)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(model => model.Rabats[0].SoftDelete)
+                    </div>
+                </div>
+                @foreach (var rabat in Model.Rabats)
+                {
+                    <form method="post">
+                        <div class="row table">
+                            <div class="col-md-4">
+                                @rabat.RabatName
+                            </div>
+                            <div class="col-md-3">
+                                @rabat.RabatProcent
+                            </div>
+                            <div class="col-md-2">
+                                @rabat.SoftDelete
+                            </div>
+                            <div class="col-md-3">
+                                <input type="hidden" asp-for="DeletedRabatId" value="@rabat.RabatId" />
+                                <input type="submit" value="Slet" class="btn btn-primary" />
+                                <a asp-page="./Rabat_Promotion/EditRabat" asp-route-id="@rabat.RabatId" class="btn btn-primary">Redigér</a>
+                            </div>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col">
-        @foreach (var Dino in Model.AllDinosaurs)
+        <div class="row table">
+            <div class="col-md-4">
+                @Html.DisplayNameFor(model => model.Promotions[0].PromotionName)
+            </div>
+            <div class="col-md-6">
+                @Html.DisplayNameFor(model => model.Promotions[0].PromotionRabat)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Promotions[0].SoftDelete)
+            </div>
+        </div>
+        @foreach (var promotion in Model.Promotions)
         {
             <form method="post">
                 <div class="row table">
-                    <div class="col-md-2">
-                        @Dino.DinoName
-                    </div>
-                    <div class="col-md-2">
-                        @Dino.PromotionRabat% Rabat
+                    <div class="col-md-4">
+                        @promotion.PromotionName
                     </div>
                     <div class="col-md-3">
-                        @Dino.DinoPrice.ToString("c")
+                        @promotion.PromotionRabat
                     </div>
                     <div class="col-md-2">
-                        @Dino.DietName
+                        @promotion.SoftDelete
                     </div>
                     <div class="col-md-3">
-                        <input type="hidden" asp-for="DeletedDinoId" value="@Dino.DinosaurId" />
+                        <input type="hidden" asp-for="DeletedPromotionId" value="@promotion.PromotionId" />
                         <input type="submit" value="Slet" class="btn btn-primary" />
-                        <a asp-page="./EditDino" class="btn btn-primary" asp-route-dinosaurId="@Dino.DinosaurId">Redigér</a>
+                        <a asp-page="./Rabat_Promotion/EditPromotion" asp-route-id="@promotion.PromotionId" class="btn btn-primary">Redigér</a>
                     </div>
                 </div>
             </form>
-            <hr />
         }
-        <div>
-            <ul class="pagination">
-                @for (var i = 1; i <= Model.TotalPages; i++)
-                {
-                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a asp-page="./Index"
-                           asp-route-orderby="@Model.OrderBy"
-                           asp-route-filterdiet="@Model.FilterDiet"
-                           asp-route-currentpage="@i"
-                           asp-route-pagesize="@Model.PageSize"
-                           class="page-link">@i</a>
-                    </li>
-                }
-            </ul>
-        </div>
     </div>
 </div>
 

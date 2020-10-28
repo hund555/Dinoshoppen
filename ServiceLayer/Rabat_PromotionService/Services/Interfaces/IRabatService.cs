@@ -1,4 +1,5 @@
 ﻿using ServiceLayer.Rabat_PromotionService.DTOCollection;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ServiceLayer.Rabat_PromotionService.Services.Interfaces
@@ -9,5 +10,6 @@ namespace ServiceLayer.Rabat_PromotionService.Services.Interfaces
         Task<int> DeleteRabat(int rabatId);
         Task<int> UpdateRabat(RabatDTO rabatDto);
         RabatDTO GetRabatDTOById(int rabatId);
+        IQueryable<RabatDTO> GetAllRabats();
     }
 }

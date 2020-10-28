@@ -15,6 +15,8 @@ using ServiceLayer.DinoService.DTOCollection;
 using ServiceLayer.DinoService.EnumCollection;
 using ServiceLayer.DinoService.Services;
 using ServiceLayer.DinoService.Services.ServiceInterfaces;
+using ServiceLayer.Rabat_PromotionService.DTOCollection;
+using ServiceLayer.Rabat_PromotionService.Services.Interfaces;
 
 namespace DinosaurShoppen.Pages.Administration
 {
@@ -23,12 +25,16 @@ namespace DinosaurShoppen.Pages.Administration
         private readonly IWebHostEnvironment _webHost;
         private readonly IDinoAdminService _dinoService;
         private readonly ICustomerServiceAdmin _adminService;
+        private readonly IRabatService _rabatService;
+        private readonly IPromotionService _promotionService;
 
-        public IndexModel(IWebHostEnvironment webHost, IDinoAdminService dinoService, ICustomerServiceAdmin serviceAdmin)
+        public IndexModel(IWebHostEnvironment webHost, IDinoAdminService dinoService, ICustomerServiceAdmin serviceAdmin, IRabatService rabatService, IPromotionService promotionService)
         {
             _webHost = webHost;
             _dinoService = dinoService;
             _adminService = serviceAdmin;
+            _rabatService = rabatService;
+            _promotionService = promotionService;
         }
 
         public SortFilterPageOptions Options { get; set; }
@@ -55,6 +61,16 @@ namespace DinosaurShoppen.Pages.Administration
 
         [BindProperty]
         public DinosaurDTO AddNewDino { get; set; }
+
+        public IList<RabatDTO> Rabats { get; set; }
+
+        [BindProperty]
+        public int DeletedRabatId { get; set; }
+
+        public IList<PromotionDTO> Promotions { get; set; }
+
+        [BindProperty]
+        public int DeletedPromotionId { get; set; }
 
         public IList<FullCustomerDTO> AllCustomers { get; set; }
 
@@ -93,6 +109,8 @@ namespace DinosaurShoppen.Pages.Administration
             PromotionsDDL = new SelectList(_dinoService.PromotionList().ToList(), "PromotionId", "PromotionName");
 
             AllDinosaurs = _dinoService.GetFullDinoList(Options).ToList();
+            Rabats = _rabatService.GetAllRabats().ToList();
+            Promotions = _promotionService.GetAllPromotions().ToList();
             TotalPages = Options.PagesCount;
         }
 
@@ -111,6 +129,18 @@ namespace DinosaurShoppen.Pages.Administration
                     System.IO.File.Delete(file);
                 }
                 
+                return RedirectToPage("./Index");
+            }
+
+            if (DeletedRabatId > 0)
+            {
+                await _rabatService.DeleteRabat(DeletedRabatId);
+                return RedirectToPage("./Index");
+            }
+
+            if (DeletedPromotionId > 0)
+            {
+                await _promotionService.DeletePromotion(DeletedPromotionId);
                 return RedirectToPage("./Index");
             }
 
