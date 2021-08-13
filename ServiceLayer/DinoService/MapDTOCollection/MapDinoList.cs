@@ -23,5 +23,22 @@ namespace ServiceLayer.DinoService.MapDTOCollection
                 DietName = d.Diet.DietName
             });
         }
+
+        public static List<ListDinoDTO> MapToDinoListUnitTest(this List<Dinosaur> dino)
+        {
+            return dino.Select(d => new ListDinoDTO
+            {
+                DinosaurId = d.DinosaurId,
+                DinoName = d.DinoName,
+                DinoPicture = d.DinoPicture,
+                DinoPrice = d.DinoPrice - (d.DinoPrice / 100 * d.Promotion.PromotionRabat),
+
+                PromotionRabat = d.Promotion.PromotionRabat,
+                PromotionName = d.Promotion.PromotionName,
+
+                DietId = d.DietId,
+                DietName = d.Diet.DietName
+            }).ToList();
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace ServiceLayer.DinoService.Services
             _context = dinoDbContext;
         }
 
-        public IQueryable<ListDinoDTO> GetTop6PromotionDino()
+        public virtual IQueryable<ListDinoDTO> GetTop6PromotionDino()
         {
             return _context.Dinosaurs
                 .Where(p => p.PromotionId != null)

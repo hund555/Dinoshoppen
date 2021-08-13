@@ -41,6 +41,18 @@ namespace DataLayer
             }
         }
 
+        public static List<Dinosaur> GetSeedingDinos()
+        {
+            return new List<Dinosaur>()
+            {
+                new Dinosaur { DinosaurId = 1, DinoName = "Tyrannosaurus Rex", DinoWeight = 14000, DinoLenght = 13, DinoHeight = 6.1, DinoPrice = 11650000, DietId = 1, PromotionId = 1 },
+                new Dinosaur { DinosaurId = 2, DinoName = "Carnotaurus", DinoWeight = 3000, DinoLenght = 9, DinoHeight = 3, DinoPrice = 3500000, DietId = 1, PromotionId = 1 },
+                new Dinosaur { DinosaurId = 3, DinoName = "Brontosaurus", DinoWeight = 15000, DinoLenght = 22, DinoHeight = 6, DinoPrice = 15000000, DietId = 2, PromotionId = 1 },
+                new Dinosaur { DinosaurId = 4, DinoName = "Ornithomimus", DinoWeight = 170, DinoLenght = 3.8, DinoHeight = 4.5, DinoPrice = 365000, DietId = 3, PromotionId = 1 }
+
+            };
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cart>()
